@@ -26,28 +26,16 @@ class NewsRepository(private val roomDao:NewsDao,private val retrofitApi:Retrofi
     }
 
     suspend fun newFeed(category: String) {
-        var res: Response<MainNews>
         try {
             val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault())
             dateFormat.timeZone = TimeZone.getFrozenTimeZone("GMT")
-            if (category != "home") {
-                res = retrofitApi.getCat("in",category, 100, Constants.apiKey)
-                if (res?.body() != null) {
-                    res.body()!!.articles.map {
-                        it.type = category
-                        it.date = dateFormat.parse(it.publishedAt).time
-                    }
-                    roomDao.insertNews(res.body()!!.articles)
+            val res = retrofitApi.getNews("in", 100, Constants.apiKey)
+            if (res?.body() != null) {
+                res.body()!!.articles.map {
+                    it.type = category
+                    it.date = dateFormat.parse(it.publishedAt).time
                 }
-            } else {
-                res = retrofitApi.getNews("in", 100, Constants.apiKey)
-                if (res?.body() != null) {
-                    res.body()!!.articles.map {
-                        it.type = category
-                        it.date = dateFormat.parse(it.publishedAt).time
-                    }
-                    roomDao.homeInsertNews(res.body()!!.articles)
-                }
+                roomDao.homeInsertNews(res.body()!!.articles)
             }
         }catch (e:Exception){}
     }
