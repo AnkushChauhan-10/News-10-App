@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.news10.view_model.NewsViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolBar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_marginTop="0dp"
+            android:background="@color/white">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/news_10"
+                    android:textColor="#039BE5"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+        </androidx.appcompat.widget.Toolbar>
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_below="@id/toolBar"
+            android:layout_marginTop="0dp"
+            android:backgroundTint="@color/white"
+            android:contentDescription="@string/app_name"
+            app:tabIndicatorColor="#03A9F4"
+            app:tabIndicatorHeight="3.5dp"
+            app:tabMode="scrollable"
+            app:tabSelectedTextColor="#03A9F4"
+            app:tabTextColor="#618C8f"/>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/connectionCardView"
+            android:layout_below="@id/tabLayout"
+            android:layout_width="match_parent"
+            android:elevation="10dp"
+            android:backgroundTint="@color/white"
+            android:layout_height="0dp"
+            setVisible="@{viewModel.networkStatus}">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:text="@string/it_looks_like_you_are_offline"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+                </LinearLayout>
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_weight="1"
+                    android:src="@drawable/baseline_signal_wifi_off_24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+       <androidx.viewpager2.widget.ViewPager2
+           android:id="@+id/viewPager2"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:layout_below="@id/connectionCardView"
+           android:layout_marginTop="0dp"/>
+
+    </RelativeLayout>
+</layout>

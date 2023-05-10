@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">News10</string>
+    <string name="news_10">News 10</string>
+    <string name="it_looks_like_you_are_offline">It Looks like you are offline</string>
+</resources>
