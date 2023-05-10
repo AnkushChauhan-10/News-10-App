@@ -1,16 +1,15 @@
 package com.example.news10.view_model
 
 
+import android.util.Log
 import androidx.lifecycle.*
 import com.example.news10.models.DaoNewsModel
 import com.example.news10.response.ApiResponse
 import com.example.news10.repository.NewsRepository
 import com.example.news10.response.NetworkStatus
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class NewsViewModel(private val repository: NewsRepository): ViewModel() {
@@ -27,6 +26,9 @@ class NewsViewModel(private val repository: NewsRepository): ViewModel() {
         }
     }
 
+    suspend fun refreshFeed(category: String):Boolean{
+        return repository.refreshFeed(category)
+    }
 
     private val _sportsNewsStateFlow = MutableStateFlow<ApiResponse<List<DaoNewsModel>>>(ApiResponse.Loading())
     val sportsNewsStateFlow = _sportsNewsStateFlow.asStateFlow()
@@ -49,16 +51,12 @@ class NewsViewModel(private val repository: NewsRepository): ViewModel() {
     private val _healthNewsStateFlow = MutableStateFlow<ApiResponse<List<DaoNewsModel>>>(ApiResponse.Loading())
     val healthNewsStateFlow = _healthNewsStateFlow.asStateFlow()
 
-    fun getNewFeed(category: String){
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.newFeed(category)
-        }
-    }
-
-    fun getNewsDao(category: String){
+    fun getNews(category: String){
         viewModelScope.launch {
-            repository.getFromDao(category).onStart {
+            repository.offLine(category).onStart {
                 emit(ApiResponse.Loading())
+            }.catch {
+                emit(ApiResponse.Error(it.message.toString()))
             }.collect{
                 when(category){
                     com.example.news10.utils.Constants.sportsFragment -> _sportsNewsStateFlow.emit(it)

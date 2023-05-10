@@ -12,12 +12,12 @@ import com.example.news10.adapters.NewsLayoutAdapter
 import com.example.news10.models.DaoNewsModel
 import com.example.news10.response.ApiResponse
 import com.example.news10.view_model.NewsViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.onCompletion
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.launch
 import java.util.*
 
 class FragmentsHelper(
@@ -37,40 +37,60 @@ class FragmentsHelper(
         recycleView.layoutManager = LinearLayoutManager(this.context)
         adapter = NewsLayoutAdapter()
         recycleView.adapter = adapter
-        viewModel.getNewsDao(fragment)
-        viewModel.getNewFeed(fragment)
-        startFlow()
-        setSwipe()
+        swipe.isRefreshing = true
+        refreshFeed()
+        viewModel.getNews(fragment)
+        collectFlow()
+        onSwipe()
         Log.d("Observer","obsere")
     }
 
 
-    fun setSwipe(){
+    fun onSwipe(){
         swipe.setOnRefreshListener {
+           refreshFeed()
+        }
+    }
+    private fun refreshFeed(){
+        GlobalScope.async {
+            viewModel.refreshFeed(fragment)
             swipe.isRefreshing = false
         }
     }
-    fun startFlow(){
+    fun collectFlow(){
         lifecycle.launchWhenCreated{
             newsFlow.collectLatest {
                 when(it){
                     is ApiResponse.Loading->{
-                        loading.visibility = View.VISIBLE
+                        onLoading()
                         Log.d("Loading","Loa-----------------------")
                     }
                     is ApiResponse.Success->{
-                        recycleView.scrollToPosition(0)
-                        loading.visibility = View.GONE
-                        adapter.submitList(it.data)
+                        onSuccess(it)
                         Log.d("Susscu",it.toString())
                     }
                     is ApiResponse.Error->{
-                        loading.visibility = View.GONE
+                        onError(it.errorMessage.toString())
                         Log.d("Error",it.errorMessage.toString())
                     }
                 }
             }
         }
+    }
+
+    private fun onLoading(){
+        if(swipe.isRefreshing == false)
+            loading.visibility = View.VISIBLE
+    }
+
+    private fun onSuccess(it: ApiResponse<List<DaoNewsModel>>){
+        recycleView.scrollToPosition(0)
+        adapter.submitList(it.data)
+        loading.visibility = View.GONE
+    }
+
+    private fun onError(it: String){
+        loading.visibility = View.GONE
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)

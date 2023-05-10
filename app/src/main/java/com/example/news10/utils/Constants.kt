@@ -3,7 +3,6 @@ package com.example.news10.utils
 object Constants {
 
     const val apiKey = "2c8c398b0d814b5ca6bfcdd8907e54d6"
-
     const val healthFragment = "health"
     const val businessFragment = "business"
     const val entertainmentFragment = "entertainment"

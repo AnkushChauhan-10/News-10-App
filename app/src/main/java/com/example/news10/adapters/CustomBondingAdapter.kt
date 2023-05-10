@@ -11,7 +11,7 @@ import com.example.news10.response.NetworkStatus
 import java.util.*
 
 @BindingAdapter("setURL")
-fun ImageView.setURL(url:String) {
+fun ImageView.setURL(url:String?=null) {
     try {
         if(url!=null) {
             Glide.with(this.context)

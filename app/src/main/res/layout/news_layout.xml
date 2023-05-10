@@ -83,7 +83,7 @@
                     <TextView
                         android:textColor="@color/black"
                         android:padding="5dp"
-                        android:text=" ago"
+                        android:text="@{temp.publishedAt}"
                         android:textStyle="bold"
                         android:textSize="12sp"
                         android:layout_width="wrap_content"

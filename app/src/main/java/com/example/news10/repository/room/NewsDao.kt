@@ -7,11 +7,8 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface NewsDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertNews(newsModelList: List<DaoNewsModel>)
-
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun homeInsertNews(newsModelList: List<DaoNewsModel>)
+    suspend fun insertNews(newsModelList: List<DaoNewsModel>)
 
     @Query("DELETE FROM news_table WHERE news_type = :category")
     suspend fun deleteAll(category: String)
