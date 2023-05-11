@@ -7,18 +7,24 @@
         <variable
             name="viewModel"
             type="com.example.news10.view_model.NewsViewModel" />
+        <variable
+            name="url"
+            type="com.example.news10.utils.Constants" />
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:backgroundTint="@color/black"
+        android:background="@color/black"
         tools:context=".MainActivity">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolBar"
+            android:backgroundTint="@color/black"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="20dp"
             android:background="@color/white">
 
             <RelativeLayout
@@ -31,62 +37,83 @@
                     android:layout_height="wrap_content"
                     android:text="@string/news_10"
                     android:textColor="#039BE5"
-                    android:textSize="25sp"
+                    android:textSize="30sp"
                     android:textStyle="bold" />
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabLayout"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+      <FrameLayout
+          android:id="@+id/fragment_container"
+          android:layout_below="@id/toolBar"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"/>
+        <RelativeLayout
+            android:id="@+id/fg"
             android:layout_below="@id/toolBar"
-            android:layout_marginTop="0dp"
-            android:backgroundTint="@color/white"
-            android:contentDescription="@string/app_name"
-            app:tabIndicatorColor="#03A9F4"
-            app:tabIndicatorHeight="3.5dp"
-            app:tabMode="scrollable"
-            app:tabSelectedTextColor="#03A9F4"
-            app:tabTextColor="#618C8f"/>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/connectionCardView"
-            android:layout_below="@id/tabLayout"
             android:layout_width="match_parent"
-            android:elevation="10dp"
-            android:backgroundTint="@color/white"
-            android:layout_height="0dp"
-            setVisible="@{viewModel.networkStatus}">
-
-            <LinearLayout
-                android:orientation="horizontal"
+            android:layout_height="match_parent">
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="130dp"
+                android:padding="5dp"
+                android:translationZ="0dp"
+                app:tabIndicatorGravity="stretch"
+                android:elevation="5dp"
+                android:layout_marginTop="40dp"
+                android:backgroundTint="@color/black"
+                android:contentDescription="@string/app_name"
+                app:tabBackground="@color/black"
+                app:tabPadding="10dp"
+                app:tabIndicatorAnimationMode="elastic"
+                app:tabIndicatorColor="@null"
+                app:tabRippleColor="@null"
+                app:tabIndicator="@drawable/tab_indicator"
+                app:tabIndicatorHeight="0dp"
+                app:tabIndicatorFullWidth="true"
+                app:tabMode="scrollable"
+                app:tabMaxWidth="160dp"
+                app:tabSelectedTextColor="#03A9F4"
+                app:tabTextColor="#618C8f">
+            </com.google.android.material.tabs.TabLayout>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/connectionCardView"
+                android:layout_below="@id/tabLayout"
+                android:layout_width="match_parent"
+                android:elevation="10dp"
+                android:backgroundTint="#07FFFFFF"
+                android:layout_height="0dp"
+                setVisible="@{viewModel.networkStatus}">
+
                 <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_weight="1"
-                    android:layout_width="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    <TextView
-                        android:text="@string/it_looks_like_you_are_offline"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:text="@string/it_looks_like_you_are_offline"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+                    </LinearLayout>
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_weight="1"
+                        android:src="@drawable/baseline_signal_wifi_off_24"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
                 </LinearLayout>
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_weight="1"
-                    android:src="@drawable/baseline_signal_wifi_off_24"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
-       <androidx.viewpager2.widget.ViewPager2
-           android:id="@+id/viewPager2"
-           android:layout_width="match_parent"
-           android:layout_height="match_parent"
-           android:layout_below="@id/connectionCardView"
-           android:layout_marginTop="0dp"/>
-
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/viewPager2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/connectionCardView"
+                android:layout_marginTop="5dp"/>
+        </RelativeLayout>
     </RelativeLayout>
 </layout>

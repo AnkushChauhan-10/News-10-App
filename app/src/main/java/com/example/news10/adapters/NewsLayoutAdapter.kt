@@ -9,6 +9,14 @@ import com.example.news10.models.DaoNewsModel
 
 class NewsLayoutAdapter: ListAdapter<DaoNewsModel, NewsLayoutAdapter.Holder>(DiffUtil()) {
 
+    private var onClickListener:OnClickListener?=null
+
+    fun setOnClick(onClickListener: OnClickListener){
+        this.onClickListener = onClickListener
+    }
+    interface OnClickListener {
+        fun onClickReadMore(url: String)
+    }
     class Holder(val binding: NewsLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(newsItem: DaoNewsModel){
             binding.temp = newsItem
@@ -22,6 +30,11 @@ class NewsLayoutAdapter: ListAdapter<DaoNewsModel, NewsLayoutAdapter.Holder>(Dif
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         holder.bind(getItem(position))
+        holder.binding.readMore.setOnClickListener {
+            if(onClickListener != null){
+                onClickListener!!.onClickReadMore(getItem(position).url)
+            }
+        }
     }
 
 

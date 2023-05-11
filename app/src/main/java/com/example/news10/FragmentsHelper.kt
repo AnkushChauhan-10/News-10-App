@@ -1,5 +1,6 @@
 package com.example.news10
 
+import android.app.Activity
 import android.content.Context
 import android.util.Log
 import android.view.View
@@ -19,9 +20,11 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
 import java.util.*
+import kotlin.math.acos
 
 class FragmentsHelper(
     val context: Context,
+    val activity: Activity,
     val lifecycle: LifecycleCoroutineScope,
     val viewModel: NewsViewModel,
     val newsFlow: StateFlow<ApiResponse<List<DaoNewsModel>>>,
@@ -36,8 +39,8 @@ class FragmentsHelper(
     fun onCreate(){
         recycleView.layoutManager = LinearLayoutManager(this.context)
         adapter = NewsLayoutAdapter()
+        adapterClickListener()
         recycleView.adapter = adapter
-        swipe.isRefreshing = true
         refreshFeed()
         viewModel.getNews(fragment)
         collectFlow()
@@ -52,6 +55,7 @@ class FragmentsHelper(
         }
     }
     private fun refreshFeed(){
+        swipe.isRefreshing = true
         GlobalScope.async {
             viewModel.refreshFeed(fragment)
             swipe.isRefreshing = false
@@ -86,6 +90,7 @@ class FragmentsHelper(
     private fun onSuccess(it: ApiResponse<List<DaoNewsModel>>){
         recycleView.scrollToPosition(0)
         adapter.submitList(it.data)
+        Log.d("des",it.data!!.get(1).description)
         loading.visibility = View.GONE
     }
 
@@ -93,6 +98,13 @@ class FragmentsHelper(
         loading.visibility = View.GONE
     }
 
+    private fun adapterClickListener(){
+        adapter.setOnClick(object :NewsLayoutAdapter.OnClickListener{
+            override fun onClickReadMore(url: String) {
+                (activity as MainActivity).webPage(url)
+            }
+        })
+    }
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     fun start(){
         Log.d("Event","Start")

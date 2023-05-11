@@ -24,7 +24,6 @@ fun ImageView.setURL(url:String?=null) {
 
     }
 }
-
 @BindingAdapter("setVisible")
 fun CardView.setVisible(temp:NetworkStatus){
     if(temp == NetworkStatus.Available) {

@@ -35,7 +35,7 @@ class EntertainmentFragment:Fragment() {
         viewModel = ViewModelProvider(requireActivity()).get(NewsViewModel::class.java)
         binding.lifecycleOwner = viewLifecycleOwner
         lifecycle.addObserver(
-            FragmentsHelper(this.requireContext(),
+            FragmentsHelper(this.requireContext(),requireActivity(),
             lifecycleScope,
             viewModel,
             viewModel.entertainmentNewsStateFlow,

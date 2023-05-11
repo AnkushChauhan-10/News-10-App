@@ -16,6 +16,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="20dp"
+            android:background="#20403C3C"
+            android:backgroundTint="#20403C3C"
             android:layout_margin="10dp"
             app:cardCornerRadius="7dp">
             <LinearLayout
@@ -32,6 +34,7 @@
                     android:text="@{temp.title}"
                     android:padding="5dp"
                     android:textSize="20sp"
+                    android:textColor="@color/white"
                     android:textStyle="bold"
                     android:ellipsize="end"
                     android:maxLines="1"
@@ -41,6 +44,7 @@
                     android:text="@{temp.description}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/white"
                     android:ellipsize="end"
                     android:maxLines="6"
                     android:padding="5dp"
@@ -56,7 +60,7 @@
                         android:text="by "
                         android:textSize="13sp"
                         android:textStyle="italic"
-                        android:textColor="@color/purple_200"
+                        android:textColor="@color/white"
                         android:padding="5dp" />
                     <TextView
                         android:layout_width="wrap_content"
@@ -65,7 +69,7 @@
                         android:textSize="13sp"
                         android:textStyle="italic"
                         android:id="@+id/author"
-                        android:textColor="@color/purple_200"
+                        android:textColor="@color/white"
                         android:padding="5dp" />
                 </LinearLayout>
                 <LinearLayout
@@ -73,7 +77,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white"
                         android:padding="5dp"
                         setTime="@{temp.date}"
                         android:textStyle="bold"
@@ -81,7 +86,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white"
                         android:padding="5dp"
                         android:text="@{temp.publishedAt}"
                         android:textStyle="bold"
@@ -97,10 +103,12 @@
                         android:text="SHARE"
                         android:textStyle="bold"
                         android:textSize="18sp"
+                        android:textColor="@color/white"
                         android:layout_marginRight="20dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
                     <TextView
+                        android:id="@+id/readMore"
                         android:text="LEARN MORE"
                         android:textStyle="bold"
                         android:textSize="18sp"
