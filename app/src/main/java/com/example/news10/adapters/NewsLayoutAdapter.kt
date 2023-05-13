@@ -16,6 +16,7 @@ class NewsLayoutAdapter: ListAdapter<DaoNewsModel, NewsLayoutAdapter.Holder>(Dif
     }
     interface OnClickListener {
         fun onClickReadMore(url: String)
+        fun onClickShare(url: String)
     }
     class Holder(val binding: NewsLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(newsItem: DaoNewsModel){
@@ -29,11 +30,15 @@ class NewsLayoutAdapter: ListAdapter<DaoNewsModel, NewsLayoutAdapter.Holder>(Dif
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder.bind(getItem(position))
+        val item = getItem(position)
+        holder.bind(item)
         holder.binding.readMore.setOnClickListener {
             if(onClickListener != null){
-                onClickListener!!.onClickReadMore(getItem(position).url)
+                onClickListener!!.onClickReadMore(item.url)
             }
+        }
+        holder.binding.share.setOnClickListener {
+            if(onClickListener!=null) onClickListener!!.onClickShare(item.url)
         }
     }
 

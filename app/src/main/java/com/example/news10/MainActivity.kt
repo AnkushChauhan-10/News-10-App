@@ -1,6 +1,7 @@
 package com.example.news10
 
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -46,7 +47,6 @@ class MainActivity : AppCompatActivity() {
         binding.url = Constants
         // ViewPager Set up
         setViewPager()
-
     }
 
     fun webPage(url:String){
@@ -75,4 +75,6 @@ class MainActivity : AppCompatActivity() {
    fun onBackActivity(){
        binding.fg.visibility = View.VISIBLE
    }
+
+
 }

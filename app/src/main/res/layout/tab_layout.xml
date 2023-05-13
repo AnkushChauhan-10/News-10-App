@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:orientation="vertical"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@drawable/tab_background">
+
     <ImageView
         android:id="@+id/img"
-        android:src="@drawable/baseline_broken_image_24"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="@drawable/tab_background"
         android:scaleType="fitXY"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_centerInParent="true"
+        android:src="@drawable/baseline_broken_image_24" />
+
     <TextView
         android:id="@+id/tabText"
         android:textColor="@color/white"
         android:translationZ="2dp"
-        android:textSize="15dp"
+        android:textSize="15sp"
         android:textStyle="bold"
         android:layout_centerInParent="true"
         android:layout_width="wrap_content"

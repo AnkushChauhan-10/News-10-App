@@ -30,6 +30,7 @@ class NewsViewModel(private val repository: NewsRepository): ViewModel() {
         return repository.refreshFeed(category)
     }
 
+
     private val _sportsNewsStateFlow = MutableStateFlow<ApiResponse<List<DaoNewsModel>>>(ApiResponse.Loading())
     val sportsNewsStateFlow = _sportsNewsStateFlow.asStateFlow()
 
@@ -69,6 +70,18 @@ class NewsViewModel(private val repository: NewsRepository): ViewModel() {
                 }
             }
         }
+    }
+
+    fun getStateFlow(fragment: String):StateFlow<ApiResponse<List<DaoNewsModel>>>{
+        when(fragment){
+            com.example.news10.utils.Constants.sportsFragment -> return sportsNewsStateFlow
+            com.example.news10.utils.Constants.technologyFragment -> return technologyNewsStateFlow
+            com.example.news10.utils.Constants.businessFragment -> return businessNewsStateFlow
+            com.example.news10.utils.Constants.entertainmentFragment -> return entertainmentNewsStateFlow
+            com.example.news10.utils.Constants.healthFragment -> return healthNewsStateFlow
+            com.example.news10.utils.Constants.scienceFragment -> return scienceNewsStateFlow
+        }
+        return generalNewsStateFlow
     }
 }
 class NewsViewModelFactory(private val repository: NewsRepository): ViewModelProvider.Factory{

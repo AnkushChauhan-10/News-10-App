@@ -14,15 +14,6 @@ class NewsViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: androidx
 
     override fun createFragment(position: Int): Fragment {
         val fragment = list[position].toLowerCase()
-        return when(fragment){
-            com.example.news10.utils.Constants.sportsFragment -> SportsFragment()
-            com.example.news10.utils.Constants.technologyFragment -> TechnologyFragment()
-            com.example.news10.utils.Constants.businessFragment -> BusinessFragment()
-            com.example.news10.utils.Constants.entertainmentFragment -> EntertainmentFragment()
-            com.example.news10.utils.Constants.healthFragment -> HealthFragment()
-            com.example.news10.utils.Constants.scienceFragment -> ScienceFragment()
-            com.example.news10.utils.Constants.generalFragment -> GeneralFragment()
-            else -> GeneralFragment()
-        }
+        return AllNewsFragment(fragment)
     }
 }

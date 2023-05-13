@@ -13,6 +13,12 @@ interface NewsDao {
     @Query("DELETE FROM news_table WHERE news_type = :category")
     suspend fun deleteAll(category: String)
 
+    @Query("DELETE FROM news_table WHERE date < :dateAgo")
+    suspend fun delete(dateAgo:Long)
+
     @Query("SELECT * FROM news_table WHERE news_type = :category ORDER BY date DESC")
     fun getNews(category: String): Flow<List<DaoNewsModel>>
+
+    @Query("SELECT * FROM news_table WHERE title = :title")
+    fun checkNews(title: String): DaoNewsModel
 }

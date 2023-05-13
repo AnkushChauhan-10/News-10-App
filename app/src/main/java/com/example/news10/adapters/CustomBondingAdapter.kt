@@ -1,6 +1,7 @@
 package com.example.news10.adapters
 
 
+import android.graphics.Color
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
@@ -48,6 +49,15 @@ fun TextView.setTime(date:Long){
         in 60..3599->this.text = (diff/(60*1000)).toString() + "min"
         in 3600..86400->this.text = (diff/(60*60*1000)).toString()+"hr"
         else -> this.text = (diff/(60*60*24*1000)).toString() + "d"
+    }
+}
+
+@BindingAdapter("link")
+fun TextView.setUrl(url: String?=null){
+    if(url!=null)   this.isEnabled = true
+    else{
+        this.isEnabled = false
+        this.setTextColor(Color.GRAY)
     }
 }
 

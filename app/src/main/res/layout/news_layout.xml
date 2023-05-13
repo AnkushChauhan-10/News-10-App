@@ -50,57 +50,67 @@
                     android:padding="5dp"
                     android:id="@+id/content"
                     android:textSize="15sp"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_alignParentLeft="true"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="by "
+                            android:textSize="13sp"
+                            android:textStyle="italic"
+                            android:textColor="@color/white"
+                            android:padding="5dp" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{temp.author}"
+                            android:textSize="13sp"
+                            android:textStyle="italic"
+                            android:id="@+id/author"
+                            android:textColor="@color/white"
+                            android:padding="2dp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_alignParentRight="true"
+                        android:orientation="horizontal"
+                        android:paddingEnd="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:textColor="@color/white"
+                            android:textColorHint="@color/white"
+                            android:padding="5dp"
+                            setTime="@{temp.date}"
+                            android:textStyle="bold"
+                            android:textSize="12sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:textColor="@color/white"
+                            android:textColorHint="@color/white"
+                            android:padding="2dp"
+                            android:text="ago"
+                            android:textStyle="bold"
+                            android:textSize="12sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                </RelativeLayout>
                 <LinearLayout
                     android:orientation="horizontal"
+                    android:padding="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="by "
-                        android:textSize="13sp"
-                        android:textStyle="italic"
-                        android:textColor="@color/white"
-                        android:padding="5dp" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{temp.author}"
-                        android:textSize="13sp"
-                        android:textStyle="italic"
-                        android:id="@+id/author"
-                        android:textColor="@color/white"
-                        android:padding="5dp" />
-                </LinearLayout>
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:textColor="@color/white"
-                        android:textColorHint="@color/white"
-                        android:padding="5dp"
-                        setTime="@{temp.date}"
-                        android:textStyle="bold"
-                        android:textSize="12sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                    <TextView
-                        android:textColor="@color/white"
-                        android:textColorHint="@color/white"
-                        android:padding="5dp"
-                        android:text="@{temp.publishedAt}"
-                        android:textStyle="bold"
-                        android:textSize="12sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
+                        android:id="@+id/share"
                         android:text="SHARE"
+                        link="@{temp.url}"
                         android:textStyle="bold"
                         android:textSize="18sp"
                         android:textColor="@color/white"
@@ -111,6 +121,7 @@
                         android:id="@+id/readMore"
                         android:text="LEARN MORE"
                         android:textStyle="bold"
+                        link="@{temp.url}"
                         android:textSize="18sp"
                         android:textColor="#00BCD4"
                         android:layout_marginLeft="20dp"
@@ -119,5 +130,12 @@
                 </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+        <View
+            android:layout_width="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_height="0.5dp"
+            android:background="@drawable/line_shape"
+            android:layout_marginBottom="3dp"
+            android:layout_marginTop="3dp"/>
     </RelativeLayout>
 </layout>
